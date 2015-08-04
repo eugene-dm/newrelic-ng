@@ -21,9 +21,12 @@
 # a compiler is required for building some of the python modules the agent requires
 include_recipe 'build-essential'
 include_recipe 'python'
+options=''
+options='--install-option="--prefix=/usr"' if node['platform'] == 'amazon'
 
 python_pip 'newrelic-plugin-agent' do
   package_name node['newrelic-ng']['plugin-agent']['pip_package']
+  options options
   action :upgrade
 end
 
